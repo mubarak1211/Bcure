@@ -29,6 +29,7 @@ const OpenAI = require("openai")
 const superAdminRoutes = require("./routes/superAdmin");
 const {MongoStore}=require("connect-mongo");
 const PORT=9090;
+const db_url=process.env.ATLASDB_URL;
 
 
 async function main(params) {
