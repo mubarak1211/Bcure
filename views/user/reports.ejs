@@ -1,0 +1,66 @@
+<link rel="stylesheet" href="/user/patientReports.css">
+<%- layout("layouts/boilerplate_patient") -%>
+<body>
+
+<div >
+  <h1>My Medical Reports</h1>
+
+</div>
+
+<div class="reports-container">
+
+<% if (reports.length === 0) { %>
+
+  <div class="no-reports">
+    No reports available.
+  </div>
+
+<% } %>
+
+<% reports.forEach(report => { %>
+
+  <div class="report-card">
+
+    <h3>
+      Dr. <%= report.doctorId.fullName %>
+    </h3>
+
+    <p>
+      <span class="report-label">Hospital:</span>
+      <%= report.hospitalId.name %>
+    </p>
+
+    <p>
+      <span class="report-label">Date:</span>
+      <%= new Date(report.date).toLocaleDateString() %>
+    </p>
+
+    <p>
+      <span class="report-label">Reason:</span>
+      <%= report.reason %>
+    </p>
+
+    <p>
+      <span class="report-label">Description:</span>
+      <%= report.description %>
+    </p>
+
+    <div class="med-list">
+      <b>Prescribed Medicines:</b>
+
+      <ul>
+        <% report.medicines.forEach(med => { %>
+          <li>
+            <strong><%= med.name %></strong> — Qty: <%= med.quantity %>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+
+  </div>
+
+<% }) %>
+
+</div>
+
+</body>

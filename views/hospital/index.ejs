@@ -1,0 +1,191 @@
+<%- layout("layouts/boilerplate_hospital") -%>
+<body>
+
+<!-- Main -->
+<div class="main">
+
+  <%
+let alerts = [];
+
+medicines.forEach(med => {
+  const today = new Date();
+  const expiry = new Date(med.expiryDate);
+  const diffDays = (expiry - today) / (1000 * 60 * 60 * 24);
+
+  if (diffDays < 0) {
+    alerts.push(`❌ ${med.name} is Expired`);
+  } 
+  else if (diffDays <= 30) {
+    alerts.push(`⚠️ ${med.name} is Expiring Soon`);
+  } 
+  else if (med.quantity < 50) {
+    alerts.push(`📦 ${med.name} is Low Stock (${med.quantity})`);
+  }
+});
+%>
+<div id="alertBox" class="alert-box" data-alerts='<%= JSON.stringify(alerts) %>'></div>
+
+  <!-- Stats -->
+  <div class="stats">
+
+    <div class="stat-card" onclick="scrollToSection('doctorSection')">
+      <h3> Doctors</h3>
+      <h2><%= totalDoctors %></h2>
+      
+    </div>
+
+    <div class="stat-card" onclick="scrollToSection('patientSection')">
+      <h3>Today Appointments</h3>
+      <h2><%= totalAppointmentsToday %></h2>
+      
+    </div>
+      <div class="stat-card">
+        <h3>Total Revenue</h3>
+        <h2>₹ <%= totalRevenue %></h2>
+      </div>
+
+  </div>
+
+  <!-- Doctors -->
+  <h2 id="doctorSection" class="section-title">Doctor Overview</h2>
+  <div class="table">
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Specialization</th>
+        <th>Status</th>
+      </tr>
+      <tr>
+        <% doctors.forEach(doc => { %>
+<tr>
+  <td>Dr. <%= doc.fullName %></td>
+  <td><%= doc.specialization %></td>
+  <td>
+    <span class="status <%= doc.status %>">
+      <%= doc.status || "NA"  %>
+    </span>
+  </td>
+</tr>
+<% }) %>
+      
+    </table>
+  </div>
+
+  <!-- Patients -->
+  <h2 id="patientSection" class="section-title">Live Patient Queue</h2>
+  <div class="table">
+    <table>
+      <tr>
+        <th>Token</th>
+        <th>Patient</th>
+        <th>Doctor</th>
+        <th>Status</th>
+      </tr>
+      <% todaysAppointments.forEach(app => { %>
+<tr>
+  <td>#<%= app.tokenNumber %></td>
+  <td><%= app.patientId.fullName %></td>
+  <td>Dr. <%= app.doctorId.fullName %></td>
+  <td>
+
+    <span class="status <%= app.status %>">
+      <%= app.status %>
+    </span>
+  </td>
+</tr>
+<% }) %>
+      
+    </table>
+  </div>
+
+
+
+ 
+  
+
+  <!-- Pharmacy -->
+   <div class="medicine-header">
+ <h2 id="medicineSection" class="section-title">Medicine Inventory</h2>
+   
+ </div>
+<div class="table">
+  <table>
+    <tr>
+      <th>Medicine</th>
+      <th>Stock</th>
+      <th>Expiry</th>
+      <th>Status</th>
+    </tr>
+
+
+    <% medicines.forEach(med => { %>
+
+          <% 
+      const today = new Date();
+      const expiry = new Date(med.expiryDate);
+      const diffDays = (expiry - today) / (1000 * 60 * 60 * 24);
+    %>
+
+      <tr>
+        <td><%= med.name %></td>
+        <td><%= med.quantity  %></td>
+        <td>
+    <%= med.expiryDate 
+        ? new Date(med.expiryDate).toDateString().slice(4)
+        : "NA" %>
+  </td>
+        <td>
+          
+        <% if (diffDays < 0) { %>
+          <span class="badge expired">
+           Expired
+          </span>
+
+        <% } else if (diffDays <= 30) { %>
+         <span style="color:orange; font-weight:bold;" class="badge expiring">
+            Expiring Soon
+          </span>
+          <% } else if(med.quantity > 50) { %>
+            <span class="badge active">In Stock</span>
+          <% } else if (med.quantity < 50 ) { %>
+            <span class="badge waiting">Low Stock</span>
+          <% } %>
+        </td>
+      </tr>
+    <% }) %>
+
+  </table>
+</div>
+
+
+
+</div>
+<script>
+const alertBox = document.getElementById("alertBox");
+const alerts = JSON.parse(alertBox.dataset.alerts);
+
+let index = 0;
+
+function showNextAlert() {
+  if (index >= alerts.length) return;
+
+  alertBox.innerText = alerts[index];
+  alertBox.classList.add("show");
+
+  setTimeout(() => {
+    alertBox.classList.remove("show");
+
+    setTimeout(() => {
+      index++;
+      showNextAlert();
+    }, 500); // wait for slide out
+  }, 2500);
+}
+
+if (alerts.length > 0) {
+  showNextAlert();
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!-- <%- layout("layouts/boilerplate_doctor") -%>
+<body>
+
+<div class="container mt-5">
+
+
+  <div class="mb-4">
+    <h2 class="page-heading">My Patients</h2>
+    <div class="page-divider"></div>
+  </div>
+
+  <% if (appointments.length === 0) { %>
+
+    <div class="alert alert-info">
+      No patients available.
+    </div>
+
+  <% } else { %>
+
+    <% appointments.forEach((appt, index) => { %>
+
+      <div class="card patient-card shadow-sm mb-4">
+
+        <div class="card-body d-flex justify-content-between align-items-center">
+
+          <!-- Left Section -->
+          <div>
+            <h5 class="patient-name mb-1">
+              <%= appt.patientId.fullName %>
+            </h5>
+
+            <small class="appointment-date">
+              Appointment Date:
+              <%= new Date(appt.appointmentDate).toLocaleDateString() %>
+            </small>
+          </div>
+
+          <!-- Right Section Button -->
+          <div>
+            <button 
+              class="btn report-btn text-white"
+              data-bs-toggle="modal"
+              data-bs-target="#reportModal<%= index %>">
+
+              View Reports
+
+              <span class="report-count">
+                <%= appt.patientId.medicalReports.length %>
+              </span>
+
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="modal fade" id="reportModal<%= index %>" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h5 class="modal-title">
+                Medical Reports - <%= appt.patientId.fullName %>
+              </h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+
+              <% if (appt.patientId.medicalReports.length > 0) { %>
+
+                <% appt.patientId.medicalReports.forEach(report => { %>
+
+                  <div class="card report-card mb-3 shadow-sm">
+                    <div class="card-body">
+
+                      <h6 class="report-title">
+                        <%= report.title %>
+                      </h6>
+
+                      <p class="mb-2">
+                        <strong>Description:</strong>
+                        <%= report.description || 'N/A' %>
+                      </p>
+
+                      <p class="report-date">
+                        Created On:
+                        <%= new Date(report.createdAt).toLocaleDateString() %>
+                      </p>
+
+                      <% if (report.file) { %>
+                        <a href="/uploads/<%= report.file %>"
+                           target="_blank"
+                           class="btn btn-outline-primary file-btn mt-2">
+                           View Attached File
+                        </a>
+                      <% } %>
+
+                    </div>
+                  </div>
+
+                <% }) %>
+
+              <% } else { %>
+
+                <p class="text-muted">
+                  You have not created any reports for this patient.
+                </p>
+
+              <% } %>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    <% }) %>
+
+  <% } %>
+
+</div>
+</body> -->

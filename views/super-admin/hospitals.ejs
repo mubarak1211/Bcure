@@ -1,0 +1,30 @@
+<%- layout("layouts/boilerplate_superAdmin") %>
+<body>
+  <h1>Hospitals List</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Hospital</th>
+        <th>Doctors</th>
+        <th>Patients</th>
+        <th>Subscription</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+<tbody>
+  <% hospitals.forEach(hospital => { %>
+    <tr>
+      <td><%= hospital.name %></td>
+      <td><%= hospital.doctorsCount %></td>
+      <td><%= hospital.patientsCount %></td>
+      <td><%= hospital.subscriptionPlan %></td>
+      <td>
+  <span class="status-pill <%= hospital.accountStatus.toLowerCase() === 'active' ? 'active' : 'inactive' %>">
+    <%= hospital.accountStatus %>
+  </span>
+</td>
+    </tr>
+  <% }) %>
+</tbody>
+  </table>
+</body>

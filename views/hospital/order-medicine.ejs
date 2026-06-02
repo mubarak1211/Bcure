@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Order Medicine</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+  background: linear-gradient(135deg,#eef2f7,#f8fafc);
+  font-family:'Inter',sans-serif;
+  padding:40px;
+  color:#1f2937;
+}
+
+/* Top Section */
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:50px;  
+}
+
+.left-section{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+/* Back Button */
+
+.back-btn{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  border:none;
+  background:white;
+  box-shadow:0 5px 15px rgba(0,0,0,0.08);
+  cursor:pointer;
+  font-size:18px;
+  transition:0.3s;
+}
+
+.back-btn:hover{
+  transform:translateY(-2px);
+}
+
+/* Add Button */
+
+.add-btn{
+  background: linear-gradient(135deg,#10b981,#059669);
+  color:white;
+  border:none;
+  padding:10px 18px;
+  border-radius:12px;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(16,185,129,0.25);
+  transition:0.3s ease;
+}
+
+.add-btn:hover{
+  transform:translateY(-2px);
+}
+
+/* Cards Container */
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+  gap:40px;
+  margin-top:30px;
+  margin-bottom:50px;
+  max-width:1200px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.cards:has(.card:only-child){
+  grid-template-columns:1fr;
+  justify-items:center;
+}
+
+.cards:has(.card:only-child) .card{
+  max-width:700px;
+  width:100%;
+}
+
+/* Card */
+
+.card{
+  position:relative;
+  background:white;
+  padding:35px;
+  border-radius:20px;
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.06),
+    0 8px 20px rgba(0,0,0,0.04);
+  transition:all 0.3s ease;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+}
+
+/* Remove Button */
+
+.remove-btn{
+  position:absolute;
+  top:18px;
+  right:18px;
+  background:#ef4444;
+  border:none;
+  color:white;
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  cursor:pointer;
+  font-weight:bold;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Hide remove button when only one card */
+.single-card .remove-btn{
+  display:none;
+}
+
+/* Labels */
+
+label{
+  font-size:14px;
+  font-weight:500;
+  margin-bottom:6px;
+  display:block;
+  color:#374151;
+}
+
+/* Inputs */
+
+input, select{
+  width:100%;
+  padding:14px;
+  margin-bottom:20px;
+  border-radius:14px;
+  border:1px solid #e5e7eb;
+  background:#f9fafb;
+  font-size:14px;
+  transition:0.25s;
+}
+
+input:focus, select:focus{
+  outline:none;
+  border-color:#3b82f6;
+  background:white;
+  box-shadow:0 0 0 4px rgba(59,130,246,0.1);
+}
+
+/* Submit */
+
+.submit-btn{
+  margin-top:35px;
+  background: linear-gradient(135deg,#3b82f6,#2563eb);
+  color:white;
+  padding:14px 32px;
+  border:none;
+  border-radius:14px;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(59,130,246,0.3);
+  transition:0.3s;
+    margin-top:10px;
+}
+.submit-btn{
+  display: block;
+  margin-left: auto;
+}
+
+.submit-btn:hover{
+  transform:translateY(-2px);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+  <div class="left-section">
+    <button class="back-btn" onclick="history.back()">←</button>
+    <h2>Order Medicines</h2>
+  </div>
+
+  <button type="button" class="add-btn" onclick="addCard()">+ Add</button>
+
+</div>
+
+<form action="/hospital/order-medicine" method="POST">
+
+<div class="cards" id="cards">
+
+  <div class="card single-card">
+    
+    <button type="button" class="remove-btn" onclick="removeCard(this)">×</button>
+
+    <label>Medicine Name</label>
+    <select name="medicineName[]" class="medicine" required>
+  <option value="">Select Medicine</option>
+  <option value="Paracetamol" data-price="2">Paracetamol</option>
+  <option value="Ibuprofen" data-price="4">Ibuprofen</option>
+  <option value="Amoxicillin" data-price="8">Amoxicillin</option>
+  <option value="Azithromycin" data-price="12">Azithromycin</option>
+  <option value="Cefixime" data-price="10">Cefixime</option>
+  <option value="Metformin" data-price="6">Metformin</option>
+  <option value="Insulin" data-price="25">Insulin</option>
+  <option value="Atorvastatin" data-price="7">Atorvastatin</option>
+  <option value="Pantoprazole" data-price="5">Pantoprazole</option>
+  <option value="Omeprazole" data-price="5">Omeprazole</option>
+  <option value="Cetirizine" data-price="3">Cetirizine</option>
+  <option value="Diclofenac" data-price="4">Diclofenac</option>
+  <option value="Aspirin" data-price="2">Aspirin</option>
+  <option value="Clopidogrel" data-price="9">Clopidogrel</option>
+  <option value="Dolo 650" data-price="3">Dolo 650</option>
+  <option value="ORS" data-price="1">ORS</option>
+  <option value="Ranitidine" data-price="4">Ranitidine</option>
+  <option value="Ciprofloxacin" data-price="11">Ciprofloxacin</option>
+  <option value="Montelukast" data-price="6">Montelukast</option>
+  <option value="Vitamin D3" data-price="15">Vitamin D3</option>
+</select>
+    <label>Quantity</label>
+    <input type="number" name="quantity[]" placeholder="Enter quantity" required>
+
+    <label>Supplier</label>
+    <select name="supplierId[]" required>
+      <option value="">Select Supplier</option>
+      <% suppliers.forEach(s => { %>
+        <option value="<%= s._id %>"><%= s.name %></option>
+      <% }) %>
+    </select>
+<label>Price (per unit)</label>
+<input type="text" class="unit-price" readonly>
+
+<label>Total Price</label>
+<input type="text" class="total-price" readonly>
+
+<!-- REAL values sent to backend -->
+<input type="hidden" name="unitPrice[]" class="unit-price-hidden">
+<input type="hidden" name="totalPrice[]" class="total-price-hidden">
+
+
+
+  </div>
+
+</div>
+<div style="max-width:1200px;margin:0 auto;text-align:right;font-size:18px;font-weight:600;">
+  Grand Total:  <span id="grandTotal">0</span>
+</div>
+
+<button class="submit-btn">Order & Pay</button>
+
+</form>
+<script>
+
+function updateGrandTotal() {
+  let grandTotal = 0;
+
+  document.querySelectorAll(".card").forEach(card => {
+    const totalInput = card.querySelector(".total-price");
+
+    if (totalInput && totalInput.value) {
+      const amount = Number(totalInput.value.replace(/[^\d.]/g, ""));
+      if (!isNaN(amount)) {
+        grandTotal += amount;
+      }
+    }
+  });
+
+  document.getElementById("grandTotal").innerText = "₹ " + grandTotal;
+}
+</script>
+<script>
+function updateRemoveButtons() {
+  const cards = document.querySelectorAll(".card");
+  cards.forEach(card => card.classList.remove("single-card"));
+
+  if (cards.length === 1) {
+    cards[0].classList.add("single-card");
+  }
+}
+
+function addCard() {
+  const container = document.getElementById("cards");
+  const newCard = document.createElement("div");
+  newCard.className = "card";
+
+  newCard.innerHTML = `
+    <button type="button" class="remove-btn" onclick="removeCard(this)">×</button>
+
+    <label>Medicine Name</label>
+    <select name="medicineName[]" class="medicine" required>
+      <option value="">Select Medicine</option>
+      <option data-price="2">Paracetamol</option>
+      <option data-price="4">Ibuprofen</option>
+      <option data-price="8">Amoxicillin</option>
+      <option data-price="12">Azithromycin</option>
+      <option data-price="10">Cefixime</option>
+      <option data-price="6">Metformin</option>
+      <option data-price="25">Insulin</option>
+      <option data-price="7">Atorvastatin</option>
+      <option data-price="5">Pantoprazole</option>
+      <option data-price="5">Omeprazole</option>
+      <option data-price="3">Cetirizine</option>
+      <option data-price="4">Diclofenac</option>
+      <option data-price="2">Aspirin</option>
+      <option data-price="9">Clopidogrel</option>
+      <option data-price="3">Dolo 650</option>
+      <option data-price="1">ORS</option>
+      <option data-price="4">Ranitidine</option>
+      <option data-price="11">Ciprofloxacin</option>
+      <option data-price="6">Montelukast</option>
+      <option data-price="15">Vitamin D3</option>
+    </select>
+
+    <label>Quantity</label>
+    <input type="number" name="quantity[]" placeholder="Enter quantity" required>
+
+    <label>Supplier</label>
+    <select name="supplierId[]" required>
+      <option value="">Select Supplier</option>
+      <% suppliers.forEach(s => { %>
+        <option value="<%= s._id %>"><%= s.name %></option>
+      <% }) %>
+    </select>
+
+    <label>Price (per unit)</label>
+    <input type="text" class="unit-price" readonly>
+
+    <label>Total Price</label>
+    <input type="text" class="total-price" readonly>
+
+    <input type="hidden" name="unitPrice[]" class="unit-price-hidden">
+    <input type="hidden" name="totalPrice[]" class="total-price-hidden">
+  `;
+
+  container.appendChild(newCard);
+  attachEvents(newCard);
+  updateRemoveButtons();
+}
+
+function removeCard(button) {
+  button.parentElement.remove();
+  updateRemoveButtons();
+  updateGrandTotal(); 
+}
+function updateCardPrice(card) {
+  const medicineSelect = card.querySelector(".medicine");
+  const qtyInput = card.querySelector('input[name="quantity[]"]');
+  const unitPriceInput = card.querySelector(".unit-price");
+  const totalPriceInput = card.querySelector(".total-price");
+  const unitHidden = card.querySelector(".unit-price-hidden");
+  const totalHidden = card.querySelector(".total-price-hidden");
+
+  const option = medicineSelect.selectedOptions[0];
+  const price = Number(option?.dataset.price || 0);
+  const qty = Number(qtyInput.value || 0);
+  const total = price * qty;
+
+  if (price && qty) {
+    unitPriceInput.value = "₹ " + price;
+    totalPriceInput.value = "₹ " + total;
+
+    unitHidden.value = price;     // ✅ PURE NUMBER
+    totalHidden.value = total;    // ✅ PURE NUMBER
+  } else {
+    unitPriceInput.value = "";
+    totalPriceInput.value = "";
+    unitHidden.value = "";
+    totalHidden.value = "";
+  }
+
+  updateGrandTotal();
+}
+
+function attachEvents(card) {
+  card.querySelector(".medicine")
+      .addEventListener("change", () => updateCardPrice(card));
+
+  card.querySelector('input[name="quantity[]"]')
+      .addEventListener("input", () => updateCardPrice(card));
+}
+
+// init
+document.querySelectorAll(".card").forEach(attachEvents);
+updateRemoveButtons();
+</script>
+
+</html>

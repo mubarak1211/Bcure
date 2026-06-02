@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>b-cure | Super Admin</title>
+
+<link rel="stylesheet" href="/super-admin/super-admin.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- 🔷 NAVBAR -->
+<div class="top-navbar">
+  <div class="nav-left">
+    <img src="/logo.png" alt="BCure" class="logo">
+  </div>
+
+  <div class="nav-right">
+    <div class="user-pill">
+      <span class="avatar">S</span>
+      <span class="username">SuperAdmin</span>
+    </div>
+    <a href="/logout" class="logout-btn">Logout</a>
+  </div>
+</div>
+
+<!-- 🔷 LAYOUT -->
+<div class="layout">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <ul>
+      <li onclick="location.href='/super-admin/'">Dashboard</li>
+      <li onclick="location.href='/super-admin/revenue'">Revenue</li>
+      <li onclick="location.href='/super-admin/patients'">Patients</li>
+      <li onclick="location.href='/super-admin/doctors'">Doctors</li>
+      <li onclick="location.href='/super-admin/hospitals'">Hospitals</li>
+      <li onclick="location.href='/super-admin/suppliers'">Suppliers</li>
+      <li onclick="location.href='/super-admin/staff'">Staff</li>
+      <li onclick="location.href='/super-admin/logout'">Logout</li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="right-content">
+    <div class="main">
+     
+      <%- body %>
+    </div>
+  </div>
+
+</div>
+
+<script>
+setTimeout(() => {
+  const flash = document.querySelector(".flash-container");
+  if (flash) {
+    flash.style.transition = "opacity 0.5s ease";
+    flash.style.opacity = "0";
+    setTimeout(() => flash.remove(), 500);
+  }
+}, 2000);
+</script>
+
+</body>
+</html>

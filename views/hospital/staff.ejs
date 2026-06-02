@@ -1,0 +1,69 @@
+<%- layout("layouts/boilerplate_hospital") -%>
+
+<div class="main">
+
+<div class="medicine-header">
+  <h2 class="section-title">Hospital Staff</h2>
+
+  <a href="/hospital/staff/add-form">
+    <button class="order-btn">Add Staff</button>
+  </a>
+</div>
+
+
+<h2 class="section-title">Nurses</h2>
+
+<div class="table">
+<table>
+<tr>
+  <th>Name</th>
+  <th>Phone</th>
+  <th>Shift</th>
+  <th>Action</th>
+</tr>
+
+<% nurses.forEach(nurse => { %>
+<tr>
+  <td><%= nurse.fullName %></td>
+  <td><%= nurse.phone %></td>
+  <td><%= nurse.shift %></td>
+  <td>
+    <form action="/hospital/staff/delete/<%= nurse._id %>" method="POST">
+      <button class="remove-btn">Remove</button>
+    </form>
+  </td>
+</tr>
+<% }) %>
+
+</table>
+</div>
+
+
+<h2 class="section-title">Sanitary Staff</h2>
+
+<div class="table">
+<table>
+<tr>
+  <th>Name</th>
+  <th>Phone</th>
+  <th>Shift</th>
+  <th>Action</th>
+</tr>
+
+<% sanitary.forEach(staff => { %>
+<tr>
+  <td><%= staff.fullName %></td>
+  <td><%= staff.phone %></td>
+  <td><%= staff.shift %></td>
+  <td>
+    <form action="/hospital/staff/delete/<%= staff._id %>" method="POST">
+      <button class="remove-btn">Remove</button>
+    </form>
+  </td>
+</tr>
+<% }) %>
+
+</table>
+</div>
+
+</div>

@@ -1,0 +1,29 @@
+<%- layout("layouts/boilerplate_hospital") -%>
+<body>
+  <!-- live Patients queue -->
+  <h2 id="patientSection" class="section-title">Live Patient Queue</h2>
+  <div class="table">
+    <table>
+      <tr>
+        <th>Token</th>
+        <th>Patient</th>
+        <th>Doctor</th>
+        <th>Status</th>
+      </tr>
+      <% todaysAppointments.forEach(app => { %>
+<tr>
+  <td>#<%= app.tokenNumber %></td>
+  <td><%= app.patientId.fullName %></td>
+  <td>Dr. <%= app.doctorId.fullName %></td>
+  <td>
+
+    <span class="status <%= app.status %>">
+      <%= app.status %>
+    </span>
+  </td>
+</tr>
+<% }) %>
+      
+    </table>
+  </div>
+</body>

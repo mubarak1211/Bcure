@@ -1,0 +1,69 @@
+
+<%- layout("layouts/boilerplate_patient") -%>
+<body>
+
+<!-- NAVBAR -->
+
+
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <h1>Welcome back, <%= patient.fullName.split(" ")[0] %> 👋</h1>
+      <p>Manage your appointments and track your health easily.</p>
+    </div>
+
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-card" onclick="window.location.href='/user/upcoming-appointments'" style="cursor:pointer">
+      <%const pendingCount = appointments.filter(app => app.status === "pending").length;%>
+      <h3>Upcoming Appointments</h3>
+      <h2><%= pendingCount %></h2>
+    </div>
+    <div class="stat-card" onclick="window.location.href='/user/reports'" style="cursor:pointer;">
+  <h3>My Reports</h3>
+  <h2><%= reports.length %></h2>
+</div>
+    <div class="stat-card">
+      <h3>Active Tokens</h3>
+     <h2><%=todaysAppointments.length%></h2>
+    </div>
+  </div>
+
+  
+  <!-- TOKEN STATUS -->
+
+    <h2 class="section-title">Today Live Token Status</h2>
+    <% if (todaysAppointments.length === 0){ %>
+      <div class="token-section">
+        <div class="token-info">
+          <p>"No appointments have been scheduled for today."</p>
+        </div>
+      </div>
+      <%}%>
+  <%for(let app of todaysAppointments){%>
+  <div class="token-section">
+    <div class="token-info">
+      <h3><%=app.hospitalId.name%></h3>
+      <p><%=app.doctorId.fullName%></p>
+      
+    </div>
+    <div class="token-box">
+      <p>Now Serving</p>
+      <h2>#<%=app.tokenNumber%></h2>
+    </div>
+  </div>
+  <%}%>
+
+
+
+
+
+
+
+</body>
+</html>

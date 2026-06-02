@@ -1,0 +1,375 @@
+<%- layout("layouts/boilerplate_doctor") -%>
+<body>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- Stats -->
+  <div class="stats ">
+  <div class="stat-card">
+    <h3>Today's Patients</h3>
+    <h2><%= totalToday %></h2>
+  </div>
+
+  <div class="stat-card">
+    <h3>Appointments</h3>
+    <h2><%= totalAppointments %></h2>
+  </div>
+
+  <div class="stat-card">
+    <h3>Completed</h3>
+    <h2><%= completedCount %></h2>
+  </div>
+
+<div class="stat-card">
+  <h3>Status</h3>
+
+  <form action="/doctor/status" method="POST" class="toggle-wrapper">
+
+    <button 
+      type="submit"
+      name="status"
+      value="available"
+      class="toggle-btn <%= doctor.status === 'available' ? 'active-available' : '' %>">
+      Available
+    </button>
+
+    <button 
+      type="submit"
+      name="status"
+      value="not-available"
+      class="toggle-btn <%= doctor.status === 'not-available' ? 'active-not' : '' %>">
+      Not Available
+    </button>
+
+  </form>
+</div>
+<div class="stat-card">
+  <h3>Doctor Revenue</h3>
+  <h2>₹ <%= doctorRevenue %></h2>
+</div>
+
+
+</div>
+
+  <!-- Appointments -->
+  <h2 id="appointments" class="section-title">Today's Appointments</h2>
+  <div class="table">
+    <table>
+      <tr>
+        <th>Time</th>
+        <th>Patient</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+
+      <% if (todaysAppointments.length === 0) { %>
+  <tr>
+    <td colspan="4">No appointments today</td>
+  </tr>
+<% } %>
+
+<% todaysAppointments.forEach(app => { %>
+<tr>
+  <td><%= app.timeSlot || "N/A" %></td>
+  <td><%= app.patientId.fullName %></td>
+  <td class="status">
+    <span class="status <%= app.status %>">
+      <%= app.status %>
+    </span>
+  </td>
+<td>
+  <% 
+    const isToday =
+      new Date(app.appointmentDate).toDateString() === new Date().toDateString();
+  %>
+
+  <% if (isToday && app.status === "confirmed") { %>
+
+    <div style="display:flex; gap:8px;">
+      
+      
+
+      <button 
+  class="complete-btn"
+  onclick="openReportModal('<%= app._id %>', '<%= app.patientId._id %>')">
+  Complete
+</button>
+
+    </div>
+
+  <% } else if (app.status === "completed") { %>
+
+    <button disabled class="done-btn">Done</button>
+
+  <% } else if (app.status === "cancelled") { %>
+
+    <button disabled class="cancelled-btn">Cancelled</button>
+
+  <% } else { %>
+
+    <span>-</span>
+
+  <% } %>
+</td>
+</tr>
+<% }) %>
+
+      
+
+    </table>
+  </div>
+
+
+
+  <!-- Queue -->
+  <h2 id="queue" class="section-title">Live Queue</h2>
+  <div class="table">
+    <table>
+      <tr>
+        <th>Token</th>
+        <th>Patient</th>
+        <th>Status</th>
+      </tr>
+      <% todaysAppointments
+   .filter(app => app.status === "confirmed")
+   .forEach(app => { %>
+
+<tr>
+  <td>#<%= app.tokenNumber %></td>
+  <td><%= app.patientId.fullName %></td>
+  <td>
+    <span class="status <%=app.status%>"><%=app.status%></span>
+  </td>
+</tr>
+
+<% }) %>
+  </div>
+
+  
+
+</div>
+
+<div id="reportModal" class="modal">
+
+  <div class="modal-content">
+
+    <h2>Create Medical Report</h2>
+
+    <form id="reportForm" method="POST">
+
+      <input type="hidden" name="appointmentId" id="appointmentId">
+<input type="hidden" name="patientId" id="patientId">
+
+      <!-- Reason -->
+      <div class="form-group">
+        <label>Reason</label>
+        <input type="text" name="reason" required>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label>Description</label>
+        <textarea name="description" rows="4" required></textarea>
+      </div>
+
+      <!-- Medicines -->
+      <div class="form-group">
+  <label>Medicines</label>
+
+  <div id="medicineContainer">
+
+    <div class="medicine-row">
+
+  <select name="medicineId[]" required>
+    <% medicines.forEach(med => { %>
+      <option value="<%= med._id %>">
+        <%= med.name %> (Stock: <%= med.quantity %>)
+      </option>
+    <% }) %>
+  </select>
+
+  <input 
+    type="number" 
+    name="quantity[]" 
+    placeholder="Qty"
+    min="1"
+    value="1"
+    required
+  >
+
+</div>
+
+  </div>
+
+  
+</div>
+      <!-- Buttons -->
+      <div class="form-actions">
+        <button type="submit" class="confirm-btn">
+          Confirm Report
+        </button>
+
+        <button type="button" onclick="closeReportModal()" class="cancel-btn">
+          Cancel
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+
+
+<script>
+
+// Scroll function
+function scrollToSection(id){
+  document.getElementById(id).scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+// Completed counter
+let completed = 0;
+
+// Mark appointment completed
+function completeAppointment(button){
+
+  let row = button.parentElement.parentElement;
+
+  let statusCell = row.querySelector(".status");
+
+  statusCell.innerHTML =
+    '<span class="badge completed">Completed</span>';
+
+  button.innerText = "Done";
+  button.disabled = true;
+
+  completed++;
+  document.getElementById("completedCount").innerText = completed;
+
+}
+
+function openReportModal(appointmentId, patientId) {
+  document.getElementById("reportModal").style.display = "flex";
+  
+  document.getElementById("appointmentId").value = appointmentId;
+  document.getElementById("patientId").value = patientId;
+
+  document.getElementById("reportForm").action =
+    "/report/create/" + appointmentId;
+}
+
+function closeReportModal() {
+  document.getElementById("reportModal").style.display = "none";
+}
+
+function addMedicine() {
+
+  let container = document.getElementById("medicineContainer");
+
+  let firstSelect = container.querySelector("select[name='medicineId[]']");
+
+  let row = document.createElement("div");
+  row.className = "medicine-row";
+
+  row.innerHTML = `
+    <select name="medicineId[]" required>
+      ${firstSelect.innerHTML}
+    </select>
+
+    <input 
+      type="number" 
+      name="quantity[]" 
+      placeholder="Qty"
+      min="1"
+      required
+    >
+  `;
+
+  container.appendChild(row);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const rows = document.querySelectorAll(".medicine-row");
+
+  rows.forEach(row => {
+    const select = row.querySelector(".medicine-select");
+    const input = row.querySelector(".quantity-input");
+
+    function updateMax() {
+      const selectedOption = select.options[select.selectedIndex];
+      const stock = selectedOption.getAttribute("data-stock");
+
+      input.max = stock;
+      input.placeholder = "Max: " + stock;
+    }
+
+    updateMax(); // run when page loads
+    select.addEventListener("change", updateMax);
+  });
+
+});
+
+input.addEventListener("input", function() {
+  if (parseInt(input.value) > parseInt(input.max)) {
+    input.value = input.max;
+  }
+
+
+function attachMedicineLogic(row) {
+
+  const select = row.querySelector("select");
+  const input = row.querySelector("input[type='number']");
+
+  function updateMax() {
+
+    const text = select.options[select.selectedIndex].text;
+    const match = text.match(/Stock:\s*(\d+)/);
+
+    if (match) {
+      const stock = parseInt(match[1]);
+
+      input.max = stock;
+
+      if (stock === 0) {
+        input.disabled = true;
+        input.value = 0;
+      } else {
+        input.disabled = false;
+      }
+
+      if (parseInt(input.value) > stock) {
+        input.value = stock;
+      }
+    }
+  }
+
+  input.addEventListener("input", function () {
+    if (parseInt(input.value) > parseInt(input.max)) {
+      input.value = input.max;
+    }
+  });
+
+  select.addEventListener("change", updateMax);
+
+  updateMax();
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".medicine-row").forEach(row => {
+    attachMedicineLogic(row);
+  });
+});
+});
+
+
+</script>
+
+</body>
+</html>

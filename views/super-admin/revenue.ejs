@@ -1,0 +1,105 @@
+<%- layout("layouts/boilerplate_superAdmin") -%>
+
+<style>
+.dashboard-grid {
+  display: grid;
+  gap: 20px;
+}
+.revenue-cards,
+.small-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.charts-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+.system-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+canvas {
+  height: 300px !important;
+}
+</style>
+
+<div class="dashboard-grid">
+
+  <!-- Revenue Cards -->
+  <div class="revenue-cards">
+    <div class="card"><h4>Appointment Revenue</h4><h2>₹ <%= stats.appointmentRevenue %></h2></div>
+    <div class="card"><h4>Medicine Commission</h4><h2>₹ <%= stats.medicineRevenue %></h2></div>
+    <div class="card"><h4>Hospital Subscriptions</h4><h2>₹ <%= stats.subscriptionRevenue %></h2></div>
+    <div class="card"><h4>Total Revenue</h4><h2>₹ <%= stats.totalRevenue %></h2></div>
+  </div>
+
+  <!-- Charts -->
+  <div class="charts-section">
+    <div class="card">
+      <h4>Revenue Analytics (Last 30 Days)</h4>
+      <canvas id="lineChart"></canvas>
+    </div>
+    <div class="card">
+      <h4>Revenue Breakdown</h4>
+      <canvas id="donutChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Small Stats -->
+  <div class="small-stats">
+    <div class="card"><h4>New Doctors</h4><h2><%= stats.newDoctors %></h2></div>
+    <div class="card"><h4>Active Hospitals</h4><h2><%= stats.activeHospitals %></h2></div>
+    <div class="card"><h4>Patients Registered</h4><h2><%= stats.patients %></h2></div>
+    <div class="card"><h4>Medicines Sold Today</h4><h2><%= stats.medicinesSold %></h2></div>
+  </div>
+
+  <!-- System -->
+  <div class="system-section">
+    <div class="card">
+      <h4>System Health</h4>
+      <p>Payments ✅ Operational</p>
+      <p>Appointments ✅ Running</p>
+      <p>Medicine Orders ⏳ Processing</p>
+    </div>
+    <div class="card">
+      <h4>Last Updated</h4>
+      <p><%= lastUpdated %></p>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const chartData = <%- JSON.stringify(chartData) %>;
+
+  new Chart(lineChart, {
+    type: "line",
+    data: chartData,
+    options: { responsive: true, maintainAspectRatio: false }
+  });
+
+  new Chart(donutChart, {
+    type: "doughnut",
+    data: {
+      labels: ["Appointments", "Subscriptions", "Medicines"],
+      datasets: [{
+        data: [
+          <%= stats.appointmentRevenue %>,
+          <%= stats.subscriptionRevenue %>,
+          <%= stats.medicineRevenue %>
+        ],
+        backgroundColor: ["#4caf50", "#ff9800", "#1c2cff"]
+      }]
+    }
+  });
+</script>

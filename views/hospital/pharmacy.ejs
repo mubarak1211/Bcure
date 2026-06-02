@@ -1,0 +1,98 @@
+<%- layout("layouts/boilerplate_hospital") -%>
+
+<body>
+    
+  <!-- Pharmacy -->
+   <div class="medicine-header">
+ <h2 id="medicineSection" class="section-title">Medicine Inventory</h2>
+ <form action="/hospital/medicine/remove-expired" method="POST">
+  <button class="remove-all-btn">Remove All Expired Medicines</button>
+</form>
+</div>
+
+<div class="table">
+  <table>
+    <tr>
+      <th>Medicine</th>
+      <th>Stock</th>
+      <th>Expiry</th>
+      <th>Status</th>
+    </tr>
+
+
+    <% medicines.forEach(med => { %>
+
+          <% 
+      const today = new Date();
+      const expiry = new Date(med.expiryDate);
+      const diffDays = (expiry - today) / (1000 * 60 * 60 * 24);
+    %>
+
+      <tr>
+        <td><%= med.name %></td>
+        <td><%= med.quantity  %></td>
+        <td>
+    <%= med.expiryDate 
+        ? new Date(med.expiryDate).toDateString().slice(4)
+        : "NA" %>
+  </td>
+        <td>
+          
+        <% if (diffDays < 0) { %>
+          <span class="badge expired">
+           Expired
+          </span>
+
+        <% } else if (diffDays <= 30) { %>
+         <span style="color:orange; font-weight:bold;" class="badge expiring">
+            Expiring Soon
+          </span>
+          <% } else if(med.quantity > 50) { %>
+            <span class="badge active">In Stock</span>
+          <% } else if (med.quantity < 50 ) { %>
+            <span class="badge waiting">Low Stock</span>
+          <% } %>
+        </td>
+      </tr>
+    <% }) %>
+
+  </table>
+</div>
+
+  <!-- order -->
+ <div class="medi-head">
+  <h2  id="medicineSection" class="section-title">Medicine Orders</h2>
+  
+<a href="/hospital/order-medicine">
+  <button class="order-btn">Order Medicine</button>
+</a>
+<div class="table">
+  <table>
+    <tr>
+      <th>Medicine</th>
+      <th>Quantity</th>
+      <th>Supplier</th>
+      <th>Status</th>
+    </tr>
+
+    <% orders.forEach(order => { %>
+      <tr>
+        <td><%= order.medicineName %></td>
+        <td><%= order.quantity %></td>
+        <td><%= order.supplierId?.name || "Supplier" %></td>
+        
+        <td>
+          <% if(order.status === "Pending") { %>
+            <span class="badge waiting">Pending</span>
+          <% } else { %>
+            <span class="badge active">Completed</span>
+          <% } %>
+        </td>
+
+      </tr>
+    <% }) %>
+
+  </table>
+</div>
+
+</body>

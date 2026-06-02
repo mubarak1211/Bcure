@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>b-cure | Supplier Dashboard</title>
+
+<link rel="stylesheet" href="/supplier/supplier.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<div class="navbar">
+
+  <!-- LEFT -->
+  <div class="nav-left">
+    <h2 class="nav-brand" onclick="location.href='/'">
+      <img src="/logo.png" alt="">
+    </h2>
+  </div>
+
+  <!-- CENTER -->
+<div class="nav-center">
+  <div class="supply-network">
+    <svg viewBox="0 0 320 80">
+
+      <!-- Path Line -->
+      <path id="flowPath"
+            d="M10 40 L100 40 L150 20 L220 60 L300 40"
+            fill="none"
+            stroke="#d1d5db"
+            stroke-width="3"
+            stroke-linecap="round"/>
+
+      <!-- Moving Shipment Dot -->
+      <circle r="6" fill="#2563eb">
+        <animateMotion dur="4s" repeatCount="indefinite">
+          <mpath href="#flowPath"/>
+        </animateMotion>
+      </circle>
+
+      <!-- Nodes -->
+      <circle cx="10" cy="40" r="6" fill="#94a3b8"/>
+      <circle cx="100" cy="40" r="6" fill="#94a3b8"/>
+      <circle cx="150" cy="20" r="6" fill="#94a3b8"/>
+      <circle cx="220" cy="60" r="6" fill="#94a3b8"/>
+      <circle cx="300" cy="40" r="6" fill="#94a3b8"/>
+
+    </svg>
+  </div>
+</div>
+
+  <!-- RIGHT -->
+  <div class="nav-right">
+    <div class="profile-pill">
+      <div class="profile-circle">
+        <%= supplier.name.charAt(0).toUpperCase() %>
+      </div>
+      <span><%= supplier.name%></span>
+    </div>
+
+    <form action="/supplier/logout" method="POST">
+      <button type="submit" class="logout-btn">Logout</button>
+    </form>
+  </div>
+
+</div>
+
+
+<!-- ================= LAYOUT ================= -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>Supplier Panel</h2>
+    <ul>
+      <li onclick="location.href='/supplier/dashboard'">Dashboard</li>
+      <li onclick="location.href='/supplier/orders'">Orders</li>
+      <li onclick="location.href='/supplier/hospital-requests'">Hospital Requests</li>
+      <li onclick="location.href='/supplier/fullfilled-orders'">Fulfilled Orders</li>
+    </ul>
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="right-content">
+    <div class="main">
+      <%-include("../includes/flash.ejs")%>
+      <%- body %>
+    </div>
+  </div>
+
+</div>
+
+<script>
+setTimeout(() => {
+  const flash = document.querySelector(".flash-container");
+  if (flash) {
+    flash.style.transition = "opacity 0.5s ease";
+    flash.style.opacity = "0";
+    
+    setTimeout(() => {
+      flash.remove();
+    }, 500); // wait for fade animation
+  }
+}, 2000); // 2 seconds
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

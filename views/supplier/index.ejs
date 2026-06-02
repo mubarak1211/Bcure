@@ -1,0 +1,99 @@
+<%- layout("layouts/boilerplate_supplier") -%>
+<body>
+
+
+
+  <div class="stats">
+
+    <div class="stat-card" >
+      <h3> Total Orders</h3>
+      <h2><%= totalOrders %></h2>
+      
+    </div>
+
+    <div class="stat-card">
+      <h3>Completed Deliveries</h3>
+      <h2><%=completedDeliveries %></h2>
+      
+    </div>
+
+    <div class="stat-card">
+      <h3>Pending Requests</h3>
+      <h2><%= pendingRequests %></h2>
+    </div>
+        <div class="stat-card">
+      <h3>Total Revenue</h3>
+      <h2><%= totalRevenue %></h2>
+    </div>
+
+  </div>
+
+<div class="container">
+    <!-- MAIN -->
+    <div class="main">
+        <!-- ORDERS CARD -->
+        <h3>Today Medicine Orders</h3>
+        <div class="card">
+<div class="table">
+<% if (orders.length === 0) { %>
+
+  <div class="empty-state">
+    <h3>No Orders Available</h3>
+    <p>There are currently no stock requests from hospitals.</p>
+  </div>
+
+<% } else { %>
+
+<table>
+
+  <tr>
+    <th>Hospital</th>
+    <th>Medicine</th>
+    <th>Quantity</th>
+    <th>Status</th>
+    <th>Enter Expiry date and deliver order</th>
+  </tr>
+
+  <% orders.forEach(order => { %>
+  <tr>
+
+    <td><%= order.hospitalId?.name || "Hospital" %></td>
+    <td><%= order.medicineName %></td>
+    <td><%= order.quantity %></td>
+
+    <td>
+      <span class="status <%= order.status.toLowerCase() %>">
+        <%= order.status %>
+      </span>
+    </td>
+
+    <td>
+      <% if(order.status === "Pending") { %>
+        <form action="/supplier/confirm-order/<%= order._id %>" method="POST">
+          <div class="action-box">
+            <div class="date-wrapper">
+              <input type="date" name="expiryDate" required class="premium-date">
+              <button type="submit" class="confirm-btn">Confirm</button>
+            </div>
+          </div>
+        </form>
+      <% } else { %>
+        <span class="status completed">Delivered</span>
+      <% } %>
+    </td>
+
+  </tr>
+  <% }) %>
+
+</table>
+
+<% } %>
+</div>
+
+
+    </div>
+
+</div>
+
+</body>
+</html>

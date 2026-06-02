@@ -1,0 +1,27 @@
+<%- layout("layouts/boilerplate_hospital") -%>
+<body>
+  <h2 id="doctorSection" class="section-title">Doctor Overview</h2>
+  <div class="table">
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Specialization</th>
+        <th>Status</th>
+      </tr>
+      <tr>
+        <% doctors.forEach(doc => { %>
+<tr>
+  <td>Dr. <%= doc.fullName %></td>
+  <td><%= doc.specialization %></td>
+  <td>
+    <span class="status <%= doc.status %>">
+      <%= doc.status || "NA"  %>
+    </span>
+  </td>
+</tr>
+<% }) %>
+      
+    </table>
+  </div>
+
+</body>

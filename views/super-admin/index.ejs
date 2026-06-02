@@ -1,0 +1,102 @@
+<%- layout("layouts/boilerplate_superAdmin") -%>
+<div class="dashboard-wrapper">
+
+  <h2 class="page-title">Super Admin Dashboard</h2>
+<div class="stats-grid">
+
+  <div class="stat-card">
+    <div class="stat-info">
+      <h4>ACTIVE HOSPITALS</h4>
+      <h1><%= totalHospitals %></h1>
+    </div>
+    <div class="icon-box blue">🏥</div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-info">
+      <h4>TOTAL PATIENTS</h4>
+      <h1><%= totalPatients %></h1>
+    </div>
+    <div class="icon-box green">👨‍⚕️</div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-info">
+      <h4>ACTIVE STAFF</h4>
+      <h1><%= totalStaff %></h1>
+    </div>
+    <div class="icon-box purple">👩‍⚕️</div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-info">
+      <h4>TOTAL DOCTORS</h4>
+      <h1><%= totalDoctors %></h1>
+    </div>
+    <div class="icon-box teal">🩺</div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-info">
+      <h4>APPOINTMENTS</h4>
+      <h1><%= totalAppointments %></h1>
+    </div>
+    <div class="icon-box orange">📅</div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-info">
+      <h4>SUPPLIERS</h4>
+      <h1><%= totalSuppliers %></h1>
+    </div>
+    <div class="icon-box pink">📦</div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-info">
+      <h4>REPORTS SUBMITTED</h4>
+      <h1><%= totalReports %></h1>
+    </div>
+    <div class="icon-box indigo">📄</div>
+  </div>
+
+
+   <!-- 🔥 REVENUE SECTION -->
+
+    <div class="stat-card revenue-card">
+      <div class="stat-info">
+        <h4>APPOINTMENT REVENUE</h4>
+        <h1>₹ <%= appointmentRTotal %></h1>
+      </div>
+      <div class="icon-box success">💊</div>
+    </div>
+
+    <div class="stat-card revenue-card">
+      <div class="stat-info">
+        <h4>MEDICINE COMMISSION</h4>
+        <h1>₹ <%= medicineRTotal %></h1>
+      </div>
+      <div class="icon-box warning">📦</div>
+    </div>
+
+    <div class="stat-card revenue-card">
+      <div class="stat-info">
+        <h4>HOSPITAL SUBSCRIPTIONS</h4>
+        <h1>₹ <%= hospitalRTotal %></h1>
+      </div>
+      <div class="icon-box dark">🏥</div>
+    </div>
+  
+    <!-- OPTIONAL: GRAND TOTAL -->
+    <div class="stat-card revenue-card">
+    <div class="stat-info">
+      <h4>TOTAL REVENUE</h4>
+      <h1>₹ <%= totalRevenue %></h1>
+    </div>
+    <div class="icon-box success">💰</div>
+  </div>
+
+
+</div>
+
+</div>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hospital Register</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body{
+  
+  background:#f0f4f8;
+}
+
+.form-box{
+  background:white;
+  padding:40px;
+  border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+/* Container to center messages */
+.flash-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: auto;
+}
+
+/* Base flash style */
+.flash {
+  min-width: 250px;
+  max-width: 400px;
+  margin-bottom: 10px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: slideDown 0.4s ease;
+}
+
+/* Success message */
+.flash-success {
+  background-color: #d4edda;
+  color: #155724;
+  border-left: 5px solid #28a745;
+}
+
+/* Error message */
+.flash-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-left: 5px solid #dc3545;
+}
+
+/* Animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<div class="row justify-content-center align-items-center" style="min-height:100vh;">
+<div class="col-md-6">
+<%-include("../includes/flash.ejs")%>
+<div class="mb-3 mt-3">
+  <a href="/dashboard" class="btn btn-primary">
+     Back
+  </a>
+</div>
+<div class="form-box">
+
+<h2 class="text-center mb-4 text-primary">Hospital Register</h2>
+
+<form action="/hospital/signup" method="POST" class="needs-validation" novalidate>
+
+<!-- Hospital Name -->
+<div class="mb-3">
+<label class="form-label fw-semibold">Hospital Name</label>
+<input type="text" name="name" class="form-control form-control-lg"
+placeholder="Enter Hospital Name" required minlength="3">
+<div class="invalid-feedback">
+Hospital name must be at least 3 characters.
+</div>
+</div>
+
+<!-- Location -->
+<div class="mb-3">
+<label class="form-label fw-semibold">Location</label>
+<input type="text" name="location" class="form-control form-control-lg"
+placeholder="Enter Locaion" required>
+<div class="invalid-feedback">
+Location is required.
+</div>
+</div>
+
+<!-- Description -->
+<div class="mb-3">
+<label class="form-label fw-semibold">Description</label>
+<textarea name="description" class="form-control"
+placeholder="Small description about hospital"></textarea>
+</div>
+
+<!-- Email -->
+<div class="mb-3">
+<label class="form-label fw-semibold">Email</label>
+<input type="email" name="email" class="form-control form-control-lg"
+placeholder="hospital@email.com" required>
+<div class="invalid-feedback">
+Enter valid email.
+</div>
+</div>
+
+<!-- Phone -->
+<div class="mb-3">
+<label class="form-label fw-semibold">Phone</label>
+<input type="tel" name="phone" class="form-control form-control-lg"
+pattern="[0-9]{10}" placeholder="Enter phone number" required>
+<div class="invalid-feedback">
+Enter valid 10 digit phone number.
+</div>
+</div>
+
+<!-- Password -->
+<div class="mb-3">
+<label class="form-label fw-semibold">Password</label>
+<input type="password" name="password" class="form-control form-control-lg"
+placeholder="" required>
+<div class="invalid-feedback">
+Enter atleast 6 characters.
+</div>
+</div>
+
+<!-- Subscription Plan -->
+<div class="mb-4">
+  <label class="form-label fw-semibold">Choose Subscription Plan</label>
+
+  <div class="border rounded p-3">
+
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="radio" name="subscriptionPlan"
+             value="basic" data-amount="2000" checked>
+      <label class="form-check-label">
+        <strong>Basic</strong> – ₹2000 / month
+      </label>
+    </div>
+
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="radio" name="subscriptionPlan"
+             value="pro" data-amount="5000">
+      <label class="form-check-label">
+        <strong>Pro</strong> – ₹5000 / month
+      </label>
+    </div>
+
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="subscriptionPlan"
+             value="enterprise" data-amount="10000">
+      <label class="form-check-label">
+        <strong>Enterprise</strong> – ₹10000 / month
+      </label>
+    </div>
+
+  </div>
+</div>
+
+<!-- Amount Display -->
+<div class="alert alert-info text-center fw-semibold">
+  Subscription Amount: ₹<span id="amount">2000</span>
+</div>
+
+<!-- Dummy Payment -->
+<div class="form-check mb-3">
+  <input class="form-check-input" type="checkbox" required>
+  <label class="form-check-label">
+    I confirm payment for the selected subscription plan
+  </label>
+  <div class="invalid-feedback">
+    Please confirm payment
+  </div>
+</div>
+
+<!-- Submit -->
+<div class="d-grid mt-4">
+<button class="btn btn-success btn-lg">
+  Pay & Register Hospital
+</button>
+</div>
+
+</form>
+
+</div>
+</div>
+</div>
+</div>
+
+<script>
+(() => {
+'use strict'
+const forms = document.querySelectorAll('.needs-validation')
+
+Array.from(forms).forEach(form => {
+form.addEventListener('submit', event => {
+if (!form.checkValidity()) {
+event.preventDefault()
+event.stopPropagation()
+}
+form.classList.add('was-validated')
+}, false)
+})
+})()
+
+setTimeout(() => {
+    const flashes = document.querySelectorAll(".flash");
+    flashes.forEach(flash => {
+      flash.style.opacity = "0";
+      setTimeout(() => flash.remove(), 500);
+    });
+  }, 3000);
+</script>
+<script>
+  const radios = document.querySelectorAll('input[name="subscriptionPlan"]');
+  const amountSpan = document.getElementById("amount");
+
+  radios.forEach(radio => {
+    radio.addEventListener("change", () => {
+      amountSpan.textContent = radio.dataset.amount;
+    });
+  });
+</script>
+
+</body>
+</html>

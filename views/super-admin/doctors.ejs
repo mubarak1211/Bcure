@@ -1,0 +1,31 @@
+<%- layout("layouts/boilerplate_superAdmin") -%>
+<body>
+  <h1>Doctors List</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Doctor</th>
+        <th>Hospital</th>
+        <th>Appointments</th>
+        
+        <th>consultation fee</th>
+        <th>Status</th>
+
+      </tr>
+    </thead>
+    <tbody>
+ 
+  <% doctors.forEach(doctor => { %>
+    <tr>
+      <td><%= doctor.fullName %></td>
+      <td><%= doctor.hospitalName %></td>
+      <td><%= doctor.appointmentCount %></td>
+      <td><%= doctor.consultationFee || "500"%></td>
+      <td><span class="status-pill <%= doctor.status %> "><%= doctor.status %></span></td>
+    </tr>
+  <% }) %>
+
+    </tbody>
+  </table>
+</body>
+</html>

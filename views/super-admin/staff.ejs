@@ -1,0 +1,26 @@
+<%- layout("layouts/boilerplate_superAdmin") %>
+<body>
+  <h1>Staff Members</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Hospital</th>
+        <th>Role</th>
+        <th>Shift</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% staffMembers.forEach(function(staff) { %>
+        <tr>
+          <td><%= staff.fullName %></td>
+          <td><%= staff.hospitalName || "harini" %></td>
+          <td><%= staff.role %></td>
+          <td><%= staff.shift %></td>
+          <td><span class="status-pill active"><%= staff.status || 'Active' %></span></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</body>

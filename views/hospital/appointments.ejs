@@ -1,0 +1,32 @@
+<%- layout("layouts/boilerplate_hospital") -%>
+
+<body>
+  <h2 id="appointmentSection" class="section-title">Appointments</h2>
+  <div class="table">
+    <table>
+      <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Patient</th>
+        <th>Doctor</th>
+        <th>Status</th>
+      </tr>
+      <tr>
+        <% allAppointments.forEach(app => { %>
+<tr>
+  <td><%=app.appointmentDate.toDateString().slice(4)%></td>
+  <td><%= app.timeSlot || "N/A" %></td>
+  <td><%= app.patientId.fullName %></td>
+  <td>Dr. <%= app.doctorId.fullName %></td>
+  <td>
+    <span class="status <%= app.status %>">
+      <%= app.status %>
+    </span>
+  </td>
+</tr>
+<% }) %>
+      
+    </table>
+  </div>
+
+  </body>

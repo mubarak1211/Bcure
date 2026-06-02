@@ -1,0 +1,182 @@
+/* ==========================
+   Page Background
+========================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #f4f7fb;
+  
+  margin: 0;
+}
+
+/* ==========================
+   Header
+========================== */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 60px;
+  background: linear-gradient(90deg, #1f3c88, #2a5298);
+  color: white;
+}
+
+.header h1 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.back-btn {
+  background: white;
+  color: #1f3c88;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.back-btn:hover {
+  background: #e6ecff;
+  transform: scale(1.05);
+}
+
+/* ==========================
+   Reports Container
+========================== */
+
+.reports-container {
+  width: 85%;
+  margin: 40px auto;
+}
+
+/* ==========================
+   Report Card
+========================== */
+
+.report-card {
+  background: white;
+  padding: 30px;
+  border-radius: 14px;
+  margin-bottom: 30px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  transition: 0.3s ease;
+}
+
+.report-card:hover {
+  transform: translateY(-5px);
+}
+
+/* ==========================
+   Doctor Name
+========================== */
+
+.report-card h3 {
+  margin-top: 0;
+  color: #1f3c88;
+  font-weight: 600;
+}
+
+/* ==========================
+   Info Text
+========================== */
+
+.report-card p {
+  margin: 8px 0;
+  color: #444;
+}
+
+.report-label {
+  font-weight: 600;
+  color: #1f3c88;
+}
+
+/* ==========================
+   Medicine List
+========================== */
+
+.med-list {
+  margin-top: 15px;
+  background: #f8f9fc;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.med-list b {
+  display: block;
+  margin-bottom: 10px;
+  color: #1f3c88;
+}
+
+.med-list ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.med-list li {
+  padding: 6px 0;
+  border-bottom: 1px solid #e3e6f0;
+}
+
+.med-list li:last-child {
+  border-bottom: none;
+}
+
+/* ==========================
+   Empty State
+========================== */
+
+.no-reports {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 18px;
+  color: #777;
+}
+
+
+
+/* footer info */
+footer{
+    background-color: lightgrey;
+    height: 8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.info-socialmedia{
+    width: 100%;
+}
+.info-socialmedia i{
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    margin-left: 0.75rem;
+}
+
+.info-links{
+    width: 100%;
+
+}
+.info-mainname{
+    width: 100%;
+}
+
+.info-links a{
+    color: black;
+    text-decoration: none;
+}
+.info-links a:hover{
+    text-decoration: underline;
+}
+.info{
+    display: flex;
+   flex-wrap: wrap;
+   text-align: center;
+   flex-direction: row;
+   
+}

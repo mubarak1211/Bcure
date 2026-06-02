@@ -1,0 +1,208 @@
+/* ==========================
+   Page Background
+========================== */
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background: #f4f7fb;
+  
+  margin: 0;
+}
+
+.search-page {
+  width: 90%;
+  margin: 40px auto;
+}
+
+/* ==========================
+   Page Title
+========================== */
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f3c88;
+  margin-bottom: 30px;
+}
+
+.no-results {
+  text-align: center;
+  font-size: 18px;
+  color: #777;
+  margin-top: 40px;
+}
+
+/* ==========================
+   Grid - 3 Cards Per Row
+========================== */
+
+.doctor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+/* ==========================
+   Doctor Card
+========================== */
+
+.doctor-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  transition: 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.doctor-card:hover {
+  transform: translateY(-6px);
+}
+
+/* ==========================
+   Doctor Info
+========================== */
+
+.doctor-info h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #1f3c88;
+  font-weight: 600;
+}
+
+.specialization {
+  margin-top: 5px;
+  font-weight: 500;
+  color: #444;
+}
+
+.hospital-name {
+  margin-top: 3px;
+  font-size: 14px;
+  color: #777;
+}
+
+/* ==========================
+   Booking Form
+========================== */
+
+.booking-form {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.booking-form input {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #dcdfe6;
+  font-size: 13px;
+}
+
+.booking-form input:focus {
+  outline: none;
+  border-color: #1f3c88;
+  box-shadow: 0 0 0 2px rgba(31, 60, 136, 0.1);
+}
+
+.booking-form button {
+  margin-top: 6px;
+  padding: 9px;
+  background: #1f3c88;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.booking-form button:hover {
+  background: #162d66;
+}
+
+/* ==========================
+   Responsive
+========================== */
+
+@media (max-width: 992px) {
+  .doctor-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .doctor-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.status-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 30px;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+}
+/* GREEN - Available */
+.status-badge.available {
+  background-color: #e6f9f0;
+  color: #1e8e5a;
+}
+
+/* RED - Not Available */
+.status-badge.not-available {
+  background-color: #fdecea;
+  color: #c0392b;
+}
+
+
+
+/* footer info */
+footer{
+    background-color: lightgrey;
+    height: 8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.info-socialmedia{
+    width: 100%;
+}
+.info-socialmedia i{
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    margin-left: 0.75rem;
+}
+
+.info-links{
+    width: 100%;
+
+}
+.info-mainname{
+    width: 100%;
+}
+
+.info-links a{
+    color: black;
+    text-decoration: none;
+}
+.info-links a:hover{
+    text-decoration: underline;
+}
+.info{
+    display: flex;
+   flex-wrap: wrap;
+   text-align: center;
+   flex-direction: row;
+   
+}

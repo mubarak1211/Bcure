@@ -1,0 +1,44 @@
+<%- layout("layouts/boilerplate_patient") -%>
+<body>
+    
+  <!-- APPOINTMENTS LIST -->
+  <h2 class="section-title">Your Upcoming-Appointments</h2>
+      <% if (appointments.length === 0){ %>
+      <div class="token-section">
+        <div class="token-info">
+          <p>"No appointments available.""</p>
+        </div>
+      </div>
+      <%}%>
+  <div class="appointments">
+
+    <% appointments.forEach(app => { %>
+
+<div class="appointment-card">
+  <div class="app-left">
+    <h4>
+      Dr. <%= app.doctorId.fullName %> – 
+      <%= app.doctorId.specialization %>
+    </h4>
+
+    <p><%= app.hospitalId.name %></p>
+
+    <p>
+      <%= app.appointmentDate ? 
+    new Date(app.appointmentDate).toLocaleDateString() 
+    : "N/A" %>
+      
+    </p>
+  </div>
+
+  <div class="status <%=app.status%>">
+    <%= app.status%>
+  </div>
+</div>
+
+<% }) %>
+
+  </div>
+</div>
+
+</body>

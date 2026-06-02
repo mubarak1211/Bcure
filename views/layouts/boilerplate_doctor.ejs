@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>b-cure | Doctor Dashboard</title>
+
+<link rel="stylesheet" href="/doctor/doctor.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- 🔷 NAVBAR -->
+<div class="navbar">
+
+  <!-- Left -->
+  <div class="nav-left">
+    <h2 class="nav-brand" onclick="location.href='/'" ><img src="/logo.png" alt=""></h2>
+  </div>
+
+
+ 
+<div class="nav-center">
+  <div class="workspace-title">
+    Doctor Workspace
+  </div>
+</div>
+
+
+  <!-- Right -->
+  <div class="nav-right">
+    <div class="profile-pill">
+      <div class="profile-circle">
+        <%= doctor.fullName.charAt(0).toUpperCase() %>
+      </div>
+      <span><%= doctor.fullName %></span>
+    </div>
+
+    <form action="/doctor/logout" method="POST">
+      <button type="submit" class="logout-btn">Logout</button>
+    </form>
+  </div>
+
+</div>
+
+<!-- 🔷 LAYOUT WRAPPER -->
+<div class="layout">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <ul>
+      <li onclick="location.href='/doctor/dashboard'">Dashboard</li>
+      <li onclick="location.href='/doctor/appointments'">Appointments</li>
+      <!-- <li onclick="location.href='/doctor/patients'">Patients</li> -->
+      <li onclick="location.href='/doctor/liveQueue'">Live Queue</li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="right-content">
+    <div class="main">
+       <%-include("../includes/flash.ejs")%>
+      <%- body %>
+    </div>
+  </div>
+
+</div>
+
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+<script>
+setTimeout(() => {
+  const flash = document.querySelector(".flash-container");
+  if (flash) {
+    flash.style.transition = "opacity 0.5s ease";
+    flash.style.opacity = "0";
+    
+    setTimeout(() => {
+      flash.remove();
+    }, 500); // wait for fade animation
+  }
+}, 2000); // 2 seconds
+</script>
+</body>
+</html>

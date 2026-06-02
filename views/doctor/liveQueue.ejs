@@ -1,0 +1,27 @@
+<%- layout("layouts/boilerplate_doctor") -%>
+<body>
+      <!-- Queue -->
+  <h2 id="queue" class="section-title">Live Queue</h2>
+  <div class="table">
+    <table>
+      <tr>
+        <th>Token</th>
+        <th>Patient</th>
+        <th>Status</th>
+      </tr>
+
+      <% todaysAppointments
+   .filter(app => app.status === "confirmed")
+   .forEach(app => { %>
+
+<tr>
+  <td>#<%= app.tokenNumber %></td>
+  <td><%= app.patientId.fullName %></td>
+  <td>
+    <span class="status <%=app.status%>"><%=app.status%></span>
+  </td>
+</tr>
+
+<% }) %>
+  </div>
+</body>

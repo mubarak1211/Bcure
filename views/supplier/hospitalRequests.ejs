@@ -1,0 +1,75 @@
+<%- layout("layouts/boilerplate_supplier") -%>
+<body>
+
+
+<div class="container">
+    <!-- MAIN -->
+    <div class="main">
+        <!-- ORDERS CARD -->
+        <h3>Hospital Requests</h3>
+        <div class="card">
+<div class="table">
+
+  <table>
+
+    <tr>
+      <th>Hospital</th>
+      <th>Medicine</th>
+      <th>Quantity</th>
+      <th>Status</th>
+      <th>Enter Expiry date and deliver order</th>
+    </tr>
+
+    <% orders.forEach(order => { %>
+    <tr>
+
+      <td>
+        <%= order.hospitalId?.name || "Hospital" %>
+      </td>
+
+      <td>
+        <%= order.medicineName %>
+      </td>
+
+      <td>
+        <%= order.quantity %>
+      </td>
+
+      <td>
+        <span class="status <%= order.status.toLowerCase() %>">
+          <%= order.status %>
+        </span>
+      </td>
+
+      <td>
+        <% if(order.status === "Pending") { %>
+<form action="/supplier/confirm-order/<%= order._id %>" method="POST">
+  
+  <div class="action-box">
+    <div class="date-wrapper">
+        <input type="date" name="expiryDate" required class="premium-date">
+        <button type="submit" class="confirm-btn">Confirm</button>
+    </div>
+    
+</div>
+</form>
+        <% } else { %>
+        <span class="status completed">
+          Delivered
+        </span>
+        <% } %>
+      </td>
+
+    </tr>
+    <% }) %>
+
+  </table>
+
+</div>
+
+
+    </div>
+
+</div>
+
+</body>

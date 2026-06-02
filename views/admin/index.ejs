@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>b-cure | Smart Healthcare Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+<style>
+  /* Style the profile button as a circle */
+  .profile-btn {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* Text color */
+    padding: 12px; /* Padding to make it large enough */
+      display: none;
+    border: none; /* Remove border */
+    border-radius: 50%; /* Make it perfectly round */
+    cursor: pointer; /* Pointer cursor on hover */
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.2s;
+  }
+
+  /* Hover effect */
+  .profile-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+  }
+
+  /* Optional: focus style */
+  .profile-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.5);
+  }
+
+</style>
+<!-- NAVBAR -->
+<header>
+  <div class="logo" ><img src="./logo.png" alt=""></div>
+
+  <nav class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#about">About</a>
+  </nav>
+
+  <div class="auth-buttons">
+<!-- for suppliers -->
+  <div class="dropdown">
+  <button class="dropdown-btn supplier-btn">
+    For Suppliers
+  </button>
+  <div class="dropdown-content">
+    <a href="/supplier/signup">join us </a>
+    <a href="/supplier/login">Supplier Login</a>
+  </div>
+</div>
+
+  <div class="dropdown">
+    <button class="dropdown-btn user-btn">
+      For Doctors
+    </button>
+    <div class="dropdown-content">
+      <a href="/doctor/signup">join us</a>
+      <a href="/doctor/login">Doctor Login</a>
+    </div>
+  </div>
+
+  <!-- Hospitals -->
+  <div class="dropdown">
+    <button class="dropdown-btn hospital-btn">
+      For Hospitals  
+    </button>
+    <div class="dropdown-content">
+      <a href="/hospital/signup">Register Hospital</a>
+      <a href="/hospital/login">Hospital Login</a>
+    </div>
+  </div>
+
+  <!-- Users -->
+  <div class="dropdown">
+    <button class="dropdown-btn user-btn">
+      For Users
+    </button>
+    <div class="dropdown-content">
+      <a href="/user/signup">Sign Up</a>
+      <a href="/user/login">User Login</a>
+    </div>
+  </div>
+ <a href="/super-admin/login" class="super-admin-btn">
+  Super Admin
+</a>
+  <!-- Profile Button -->
+
+
+</div>
+
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <%-include("../includes/flash.ejs")%>
+  <div class="hero-content">
+    <h1>Revolutionizing <span>Healthcare Management</span></h1>
+    <p>
+      b-cure connects Hospitals, Doctors, and Patients into one powerful,
+      scalable, and intelligent healthcare ecosystem.
+    </p>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat-card">
+        <h2>150+</h2>
+        <p>Hospitals Onboarded</p>
+      </div>
+      <div class="stat-card">
+        <h2>1,200+</h2>
+        <p>Verified Doctors</p>
+      </div>
+      <div class="stat-card">
+        <h2>40,000+</h2>
+        <p>Patients Served</p>
+      </div>
+    </div>
+
+    <div>
+      <a href="/user/login" class="btn btn-primary">Book Appointment</a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="section">
+  <h2>Powerful Features Built for Modern Healthcare</h2>
+  <p>Everything hospitals and patients need in one secure ecosystem.</p>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <h3>🎟 Smart Token System</h3>
+      <p>Daily auto-reset queue management for walk-ins and appointments.</p>
+    </div>
+    <div class="feature-card">
+      <h3>💊 Intelligent Inventory</h3>
+      <p>Batch tracking, expiry alerts, low-stock predictions .</p>
+    </div>
+    <div class="feature-card">
+      <h3>📅 Appointment Booking</h3>
+      <p>Search doctors by specialization and book instantly.</p>
+    </div>
+    <div class="feature-card">
+      <h3>🏥 Multi-Tenant Control</h3>
+      <p>Independent hospital domains under one scalable cloud system.</p>
+    </div>
+    <div class="feature-card">
+      <h3>
+        📦Supplier Management
+      </h3>
+      <p>Vendor onboarding,inventory coordination and centralized system.</p>
+    </div>
+     <div class="feature-card">
+      <h3>
+        🤖Ai-assisstant
+      </h3>
+      <p>Get instant smart support for appointments, patient queries.</p>
+    </div>
+    <div class="feature-card">
+      <h3>
+        📝Report
+      </h3>
+      <p>The Doctor Report module enables analysis of patient, treatment details, prescriptions, continuity of care.</p>
+    </div>
+    <div class="feature-card">
+      <h3>
+        👥Staff
+      </h3>
+      <p>The Staff module enables  management of staff details, attendance, and responsibilities.</p>
+    </div>
+    
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section about">
+  <h2>About b-cure</h2>
+  <p style="margin-top:20px;">
+    b-cure is a scalable healthcare management platform designed to connect 
+    hospitals, doctors, and patients in a unified ecosystem.
+    Our system supports multi-tenant hospital architecture, smart token queues,
+    medicine inventory intelligence, and real-time appointment booking —
+    all built with performance, scalability, and security in mind.
+  </p>
+
+  <div style="margin-top:40px;">
+    <a href="#" class="btn btn-primary">Learn More</a>
+  </div>
+</section>
+<%-include("../includes/footer.ejs")-%>
+<script>
+  setTimeout(() => {
+    const flashes = document.querySelectorAll(".flash");
+    flashes.forEach(flash => {
+      flash.style.opacity = "0";
+      setTimeout(() => flash.remove(), 500);
+    });
+  }, 3000);
+</script>
+</body>
+</html>

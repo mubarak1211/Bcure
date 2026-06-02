@@ -1,0 +1,42 @@
+<%- layout("layouts/boilerplate_doctor") -%>
+<body>
+      <!-- All appointments -->
+  <h2 id="patients" class="section-title">All Appointments</h2>
+
+<div class="table">
+  <table>
+    <tr>
+      <th>Date</th>
+      <th>Patient</th>
+      <th>Token</th>
+      <th>Status</th>
+    </tr>
+
+    <% if (allAppointments.length === 0) { %>
+      <tr>
+        <td colspan="4">No appointments found</td>
+      </tr>
+    <% } %>
+
+    <% allAppointments.forEach(app => { %>
+      <tr>
+        <td>
+          <%= new Date(app.appointmentDate).toLocaleDateString() %>
+        </td>
+        <td>
+          <%= app.patientId.fullName %>
+        </td>
+        <td>
+          #<%= app.tokenNumber %>
+        </td>
+        <td>
+          <span class="status <%= app.status %>">
+            <%= app.status %>
+          </span>
+        </td>
+      </tr>
+    <% }) %>
+
+  </table>
+</div>
+</body>

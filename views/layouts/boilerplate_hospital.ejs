@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>b-cure | Hospital Dashboard</title>
+<link rel="stylesheet" href="/hospital/hospital.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Navbar -->
+<div class="navbar">
+
+  <!-- LEFT -->
+  <div class="nav-left">
+    <span class="nav-brand" onclick="location.href='/'"><h2><img src="/logo.png" alt=""></h2></span>
+  </div>
+
+  <!-- CENTER -->
+  <div class="nav-center">
+
+  <div class="ecg-wrapper">
+    <span class="ecg-label"> <div class="monitor-center">
+
+
+  <!-- RIGHT: ECG Wave -->
+  <div class="monitor-ecg">
+    <svg viewBox="0 0 500 60" preserveAspectRatio="none">
+      <path 
+        d="M0 30 
+           L40 30 
+           L55 10 
+           L70 50 
+           L85 30 
+           L130 30 
+           L150 15 
+           L170 45 
+           L190 30 
+           L240 30 
+           L260 5 
+           L280 55 
+           L300 30 
+           L500 30"
+        class="ecg-line"
+      />
+    </svg>
+  </div>
+
+</div></span>
+
+    <div class="ecg-container">
+      <svg class="ecg-svg" viewBox="0 0 500 60" preserveAspectRatio="none">
+        <path 
+          d="M0 30 
+             L40 30 
+             L55 10 
+             L70 50 
+             L85 30 
+             L130 30 
+             L150 15 
+             L170 45 
+             L190 30 
+             L240 30 
+             L260 5 
+             L280 55 
+             L300 30 
+             L500 30"
+          class="ecg-path"
+        />
+      </svg>
+    </div>
+
+</div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="nav-right">
+    <div class="profile-pill">
+      <div class="profile-circle">
+        <%= hospital.name.charAt(0).toUpperCase() %>
+      </div>
+      <span><%= hospital.name %></span>
+    </div>
+
+    <form action="/hospital/logout" method="POST">
+      <button type="submit" class="logout-btn">Logout</button>
+    </form>
+  </div>
+
+</div>
+<div class="layout">
+  <!-- Sidebar -->
+<div class="sidebar">
+  
+  <ul>
+    <li onclick="location.href='/hospital/dashboard'">Dashboard</li>
+    <li onclick="location.href='/hospital/doctors'">Doctors</li>
+    <li onclick="location.href='/hospital/livepatientsqueue'">Live Patients Queue</li>
+    <li onclick="location.href='/hospital/appointments'">Appointments</li>
+    <li onclick="location.href='/hospital/pharmacy'">Pharmacy</li>
+    <li onclick="window.location.href='/hospital/staff'">Staff</li>
+  </ul>
+</div>
+
+<div class="right-content">
+    <!-- Main Page -->
+     
+    <div class="main">
+      <%-include("../includes/flash.ejs")%>
+      <%-body-%>
+    </div>
+
+  </div>
+
+</div>
+<script>
+setTimeout(() => {
+  const flash = document.querySelector(".flash-container");
+  if (flash) {
+    flash.style.transition = "opacity 0.5s ease";
+    flash.style.opacity = "0";
+    
+    setTimeout(() => {
+      flash.remove();
+    }, 500); // wait for fade animation
+  }
+}, 2000); // 2 seconds
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</html>
