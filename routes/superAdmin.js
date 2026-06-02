@@ -39,7 +39,7 @@ const isSuperAdmin = (req, res, next) => {
 };
 
 
-const SuperAdmin = require("../models/SuperAdmin");
+const SuperAdmin = require("../models/superAdmin");
 
 router.get("/revenue", async (req, res) => {
   try {
