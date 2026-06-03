@@ -58,28 +58,33 @@ app.use(express.json());
 // Session Store
 const store = MongoStore.create({
   mongoUrl: process.env.ATLASDB_URL,
-  collectionName: "sessions",
 });
 
 store.on("error", (err) => {
-  console.error("SESSION STORE ERROR:", err);
+  console.log("SESSION STORE ERROR:", err);
 });
+
 
 app.use(
   session({
     store,
-    name: "Bcure_session",
+    name: "Bcure_session", // optional but clean
     secret: process.env.MY_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === "production", // IMPORTANT
       sameSite: "lax",
       maxAge: 1000 * 60 * 60 * 24,
     },
   })
 );
+
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+}
+
 
 app.use(flash());
 
